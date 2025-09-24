@@ -34,25 +34,28 @@ def call_gemini_cli(query: str) -> str:
         return f"Error calling Gemini CLI: {str(e)}"
 
 async def main():
-    # Interactive Gemini CLI and MCP routing
-    query = input("Enter your query for Gemini CLI: ")
-    gemini_result = call_gemini_cli(query)
-    print(f"Gemini CLI result: {gemini_result}")
+    while True:
+        query = input("Enter your query for Gemini CLI (or type 'exit' to quit): ")
+        if query.lower() == "exit":
+            print("Exiting client.")
+            break
 
-    # Simple routing logic based on keywords
-    if "switch model" in query.lower():
-        model_name = query.split("switch model",1)[-1].strip() or "gemini"
-        await call_switch_model(model_name)
-    elif "ingest" in query.lower():
-        # Example: 'ingest filename.txt'
-        parts = query.split()
-        if len(parts) > 1:
-            file_path = parts[-1]
-            await call_ingest_file(file_path)
+        gemini_result = call_gemini_cli(query)
+        print(f"Gemini CLI result: {gemini_result}")
+
+        if "switch model" in query.lower():
+            model_name = query.split("switch model",1)[-1].strip() or "gemini"
+            await call_switch_model(model_name)
+        elif "ingest" in query.lower():
+            parts = query.split()
+            if len(parts) > 1:
+                file_path = parts[-1]
+                await call_ingest_file(file_path)
+            else:
+                print("Please specify a file to ingest.")
         else:
-            print("Please specify a file to ingest.")
-    else:
-        await call_answer_query(query)
+            await call_answer_query(query)
+   
 
 if __name__ == "__main__":
     asyncio.run(main())
