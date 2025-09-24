@@ -1,0 +1,16 @@
+README.md
+setup.py
+client/__init__.py
+client/main.py
+fastmcp.egg-info/PKG-INFO
+fastmcp.egg-info/SOURCES.txt
+fastmcp.egg-info/dependency_links.txt
+fastmcp.egg-info/top_level.txt
+server/__init__.py
+server/document_ingestion.py
+server/main.py
+server/model_manager.py
+server/query_handler.py
+tests/test_document_ingestion.py
+utils/__init__.py
+utils/file_parser.py
